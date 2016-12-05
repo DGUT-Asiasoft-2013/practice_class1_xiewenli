@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class PictureInputCellFragment extends Fragment {
+public class PictureInputCellFragment extends BaseInputCellFragment {
 	
 	ImageView imageView;
 	TextView labelText;
