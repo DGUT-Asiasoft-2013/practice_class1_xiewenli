@@ -1,0 +1,66 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            
+            
+            <LinearLayout 
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                
+            <TextView 
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="登录名"
+                android:textColor="@android:color/black"
+                android:textSize="12sp"/>
+            
+            <EditText
+                android:id="@+id/edit_account"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="登录名"
+                android:text="12" />
+            </LinearLayout>
+            
+        <fragment 
+                android:id="@+id/input_account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                class="com.example.helloworld.fragments.inputcells.SimpleTextInputCellFragment"
+                tools:layout="@layout/fragment_inputcell_simpletext"/>
+        
+        <fragment 
+                android:id="@+id/input_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                class="com.example.helloworld.fragments.inputcells.SimpleTextInputCellFragment"
+                tools:layout="@layout/fragment_inputcell_simpletext"/>
+        
+        <fragment 
+                android:id="@+id/input_repeat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                class="com.example.helloworld.fragments.inputcells.SimpleTextInputCellFragment"
+                tools:layout="@layout/fragment_inputcell_simpletext"/>
+        
+                
+    	<Button 
+    	    android:id="@+id/submit"
+    	    android:layout_width="match_parent"
+    	    android:layout_height="50dp"
+    	    android:text="SUBMIT"/>
+    	
+    	</LinearLayout>
+
+</RelativeLayout>
