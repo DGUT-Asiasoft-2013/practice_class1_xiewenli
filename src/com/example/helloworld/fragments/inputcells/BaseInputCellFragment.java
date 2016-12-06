@@ -2,13 +2,11 @@ package com.example.helloworld.fragments.inputcells;
 
 import android.app.Fragment;
 
-public class BaseInputCellFragment extends Fragment {
+public abstract class BaseInputCellFragment extends Fragment {
 
-	public void setLabelText(String labelText) {
-	}
+	public abstract void setLabelText(String labelText);
 	
 	
-	public void setHintText(String HintText) {
-	}
+	public abstract void setHintText(String HintText);
 	
 }

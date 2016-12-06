@@ -2,9 +2,15 @@ package com.example.helloworld.fragments.inputcells;
 
 import com.example.helloworld.R;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.media.ImageReader.OnImageAvailableListener;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +18,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class PictureInputCellFragment extends BaseInputCellFragment {
+	
+	final int REQUEST_CAMERA = 1;
+	final int REQUEST_ALBUM = 2;
 	
 	ImageView imageView;
 	TextView labelText;
@@ -22,7 +31,7 @@ public class PictureInputCellFragment extends BaseInputCellFragment {
 		View view = inflater.inflate(R.layout.fragment_inputcell_picture, container);
 		
 		imageView  = (ImageView)view.findViewById(R.id.image);
-		labelText = (TextView)view.findViewById(R.id.labelText);
+		labelText = (TextView)view.findViewById(R.id.label);
 		hintText = (TextView)view.findViewById(R.id.hint);
 		
 		imageView.setOnClickListener(new View.OnClickListener() {
@@ -39,6 +48,62 @@ public class PictureInputCellFragment extends BaseInputCellFragment {
 	
 	void onImageViewClicked()
 	{
+		String[] items = {"≈ƒ’’", "œ‡≤·"};
+		
+		new AlertDialog.Builder(getActivity())
+		.setTitle(hintText.getText())
+		.setItems(items, new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				switch (which) {
+				case 0:
+					takePhoto();
+					break;
+				case 1:
+					pickFromAlbum();
+					break;
+				default:
+					break;
+				}
+			}
+		})
+		.setNegativeButton("", null)
+		.show();
+	}
+	
+	void takePhoto()
+	{
+		Intent itnt = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		startActivityForResult(itnt, REQUEST_CAMERA);
+	}
+	
+	void pickFromAlbum()
+	{
+		Intent itnt = new Intent(Intent.ACTION_GET_CONTENT);
+		itnt.setType("image/*");
+		startActivityForResult(itnt, REQUEST_ALBUM);
+	}
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (resultCode==Activity.RESULT_CANCELED) return;
+		
+		if (requestCode==REQUEST_CAMERA)
+		{
+			Bitmap bmp = (Bitmap)data.getExtras().get("data");
+			imageView.setImageBitmap(bmp);
+		}
+		else if (requestCode==REQUEST_ALBUM)
+		{
+			try {
+					Bitmap bmp = (Bitmap)data.getExtras().get("data");
+					imageView.setImageBitmap(bmp);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		}
 	}
 	
 	public void setLabelText(String labelText)
