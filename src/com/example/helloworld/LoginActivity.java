@@ -23,10 +23,12 @@ public class LoginActivity extends Activity {
 			});
 		}
 		
-		void goRegister(){
+	void goRegister(){
 			Intent itnt = new Intent(this,RegisterActivity.class);
 			startActivity(itnt);
 	}
+		
+	
 			
 		
 }

@@ -1,21 +1,57 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal"
+        android:text="LOGINTOHELLO" />
+    
+    <fragment 
+        android:id="@+id/f1"
+        class="com.example.helloworld.fragments.inputcells.SimpleTextInputCellFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout="@layout/fragment_inputcell_simpletext"/>
+    
+    <fragment 
+        android:id="@+id/f2"
+        class="com.example.helloworld.fragments.inputcells.SimpleTextInputCellFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout="@layout/fragment_inputcell_simpletext"/>
+    
+    <TextView 
+        android:id="@+id/btn_forgot_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:textColor="#0000ff"
+        android:text="忘记密码？"
+        />
+    
+    <LinearLayout 
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    
     <Button
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="144dp"
         android:text="GO REGISTER" />
-
-    <TextView
+    
+    <Button 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:text="LOGIN ACTIVITY" />
+        android:text="LOGIN"/>
+    
+    </LinearLayout>
 
-</RelativeLayout>
+    
+
+</LinearLayout>

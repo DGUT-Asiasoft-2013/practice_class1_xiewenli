@@ -34,7 +34,7 @@ public class SimpleTextInputCellFragment extends BaseInputCellFragment {
 	
 	public void setLabelText(String labelText)
 	{
-		labelText.setText(labelText);
+		//labelText.setText(labelText);
 	}
 	
 	public void setHintText(String HintText)
