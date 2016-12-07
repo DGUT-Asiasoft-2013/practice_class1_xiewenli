@@ -8,6 +8,7 @@ import android.os.Bundle;
 public class RegisterActivity extends Activity {
 	
 	SimpleTextInputCellFragment fragInputCellAccount;
+	SimpleTextInputCellFragment fragInputEmailAddress;
 	SimpleTextInputCellFragment fragInputCellPassword;
 	SimpleTextInputCellFragment fragInputCellPasswordRepeat;
 	
@@ -17,6 +18,7 @@ public class RegisterActivity extends Activity {
 		setContentView(R.layout.activity_register);
 		
 		fragInputCellAccount = (SimpleTextInputCellFragment)getFragmentManager().findFragmentById(R.id.input_account);
+		fragInputEmailAddress = (SimpleTextInputCellFragment)getFragmentManager().findFragmentById(R.id.input_email);
 		fragInputCellPassword = (SimpleTextInputCellFragment)getFragmentManager().findFragmentById(R.id.input_password);
 		fragInputCellPasswordRepeat = (SimpleTextInputCellFragment)getFragmentManager().findFragmentById(R.id.input_password_repeat);
 	}
@@ -33,5 +35,7 @@ public class RegisterActivity extends Activity {
 		fragInputCellPasswordRepeat.setLabelText("÷ÿ∏¥√‹¬Î");
 		fragInputCellPasswordRepeat.setHintText("«Î÷ÿ∏¥√‹¬Î");
 		fragInputCellPasswordRepeat.setIsPassword(true);
+		fragInputEmailAddress.setLabelText("µÁ◊”” œ‰");
+		fragInputEmailAddress.setHintText("«Î ‰»ÎµÁ◊”” œ‰");
 	}
 }

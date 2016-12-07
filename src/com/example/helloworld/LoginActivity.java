@@ -24,7 +24,7 @@ public class LoginActivity extends Activity {
 		});
 		
 		findViewById(R.id.btn_login).setOnClickListener(new View.OnClickListener() {
-			
+			//登录按钮
 			@Override
 			public void onClick(View v) {
 				goLogin();
@@ -32,7 +32,7 @@ public class LoginActivity extends Activity {
 		});
 		
 		findViewById(R.id.btn_forgot_password).setOnClickListener(new View.OnClickListener() {
-			
+			//忘记密码
 			@Override
 			public void onClick(View v) {
 				goRecoverPassword();
@@ -46,7 +46,7 @@ public class LoginActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		
+		//设置项目名
 		fragAccount.setLabelText("账户名");
 		fragAccount.setHintText("请输入账户名");
 		fragPassword.setLabelText("密码");
@@ -54,17 +54,17 @@ public class LoginActivity extends Activity {
 		fragPassword.setIsPassword(true);
 	}
 	
-	void goRegister(){
+	void goRegister(){  //进入注册界面
 		Intent itnt = new Intent(this,RegisterActivity.class);
 		startActivity(itnt);
 	}
 	
-	void goLogin(){
+	void goLogin(){  //进入登录界面
 		Intent itnt = new Intent(this, HelloWorldActivity.class);
 		startActivity(itnt);
 	}
 	
-	void goRecoverPassword(){
+	void goRecoverPassword(){  //进入密码找回界面
 		Intent itnt = new Intent(this, PasswordRecoverActivity.class);
 		startActivity(itnt);
 	}

@@ -17,7 +17,7 @@ public class BootActivity extends Activity {
 		
 	}
 	
-	protected void onResume()
+	protected void onResume()  //开始界面。1000ms后进入LoginActivity
 	{
 		super.onResume();
 			
@@ -32,7 +32,7 @@ public class BootActivity extends Activity {
 		
 	}
 	
-	void startLoginActivity()
+	void startLoginActivity()  //进入LoginActivity
 	{
 		Intent itnt = new Intent(this, LoginActivity.class);
 		startActivity(itnt);

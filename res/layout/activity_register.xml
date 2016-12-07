@@ -19,9 +19,7 @@
             android:orientation="vertical"
             android:background="@android:color/white">
             
-            
-            
-            
+          
         <fragment 
                 android:id="@+id/input_account"
                 android:layout_width="match_parent"
@@ -58,7 +56,7 @@
                 tools:layout="@layout/fragment_inputcell_simpletext"/>
                 
     	<Button 
-    	    android:id="@+id/submit"
+    	    android:id="@+id/btn_submit"
     	    android:layout_width="match_parent"
     	    android:layout_height="50dp"
     	    android:text="SUBMIT"/>
