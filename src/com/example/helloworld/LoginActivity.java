@@ -16,7 +16,7 @@ public class LoginActivity extends Activity {
 		setContentView(R.layout.activity_login);
 		
 		findViewById(R.id.btn_register).setOnClickListener(new View.OnClickListener() {
-			
+			//点击注册按钮进入RegisterActivity
 			@Override
 			public void onClick(View v) {
 				goRegister();
@@ -24,7 +24,7 @@ public class LoginActivity extends Activity {
 		});
 		
 		findViewById(R.id.btn_login).setOnClickListener(new View.OnClickListener() {
-			//登录按钮
+			//点击登录按钮进入HelloWorldActivity
 			@Override
 			public void onClick(View v) {
 				goLogin();
@@ -32,7 +32,7 @@ public class LoginActivity extends Activity {
 		});
 		
 		findViewById(R.id.btn_forgot_password).setOnClickListener(new View.OnClickListener() {
-			//忘记密码
+			//点击忘记密码文本进入密码重置
 			@Override
 			public void onClick(View v) {
 				goRecoverPassword();

@@ -12,7 +12,7 @@ public class MainTabbarFragment extends Fragment {
 
 	View btnNew, tabFeeds, tabNotes, tabSearch, tabMe;
 	View[] tabs;
-	
+	//Ö÷±êÇ©
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_widget_main_tabbar, null);
@@ -77,4 +77,22 @@ public class MainTabbarFragment extends Fragment {
 		if (onTabSelectedListener!=null && selectedIndex>=0)
 			onTabSelectedListener.onTabSelected(selectedIndex);
 	}
+	
+	public static interface OnNewClickedListener{
+		void onNewClicked();
+	}
+	
+	OnNewClickedListener onNewClickedListener;
+
+	public void setOnNewClickedListener(OnNewClickedListener listener){
+		this.onNewClickedListener = listener;
+	}
+	
+	void onNewClicked(){
+		if(onNewClickedListener!=null)
+			onNewClickedListener.onNewClicked();
+	}
+
 }
+
+
