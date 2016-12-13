@@ -15,14 +15,14 @@ public class SimpleTextInputCellFragment extends BaseInputCellFragment {
 	
 		
 	TextView label;
-	private EditText edit;
+	EditText edit;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 		View view = inflater.inflate(R.layout.fragment_inputcell_simpletext, container);
 		label = (TextView) view.findViewById(R.id.label);
-		setEdit((EditText)view.findViewById(R.id.edit));
+		edit = (EditText)view.findViewById(R.id.edit);
 		
 		return view;
 	}
@@ -34,26 +34,24 @@ public class SimpleTextInputCellFragment extends BaseInputCellFragment {
 	
 	public void setHintText(String HintText)
 	{
-		getEdit().setHint(HintText);
+		edit.setHint(HintText);
+	}
+	
+	public String getText()
+	{
+		return edit.getText().toString();
 	}
 	
 	public void setIsPassword(boolean isPassword)
 	{
 		if(isPassword)
 		{
-			getEdit().setInputType(EditorInfo.TYPE_CLASS_TEXT|EditorInfo.TYPE_TEXT_VARIATION_PASSWORD);	
+			edit.setInputType(EditorInfo.TYPE_CLASS_TEXT|EditorInfo.TYPE_TEXT_VARIATION_PASSWORD);	
 		}
 		else
 		{
-			getEdit().setInputType(EditorInfo.TYPE_CLASS_TEXT);
+			edit.setInputType(EditorInfo.TYPE_CLASS_TEXT);
 		}		
-}
-
-	public EditText getEdit() {
-		return edit;
 	}
 
-	public void setEdit(EditText edit) {
-		this.edit = edit;
-	}
 }

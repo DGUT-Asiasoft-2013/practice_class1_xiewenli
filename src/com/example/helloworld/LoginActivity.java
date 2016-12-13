@@ -1,11 +1,27 @@
 package com.example.helloworld;
 
+import java.io.IOException;
+
+import com.example.helloworld.api.Server;
+import com.example.helloworld.api.entity.User;
 import com.example.helloworld.fragments.inputcells.SimpleTextInputCellFragment;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class LoginActivity extends Activity {
 	SimpleTextInputCellFragment fragAccount,fragPassword;
@@ -59,9 +75,102 @@ public class LoginActivity extends Activity {
 		startActivity(itnt);
 	}
 	
-	void goLogin(){  //进入登录界面
-		Intent itnt = new Intent(this, HelloWorldActivity.class);
-		startActivity(itnt);
+	void goLogin(){  //输入用户名、密码进入登录界面
+		
+		String account = fragAccount.getText();
+		String password = fragPassword.getText();
+		
+		if (account.equals("") || password.equals("")){
+			new AlertDialog.Builder(this)
+			.setTitle("提示")
+			.setMessage("请填写账号密码")
+			.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+						
+				}
+			}).show();
+			return ;
+		}
+		OkHttpClient client = Server.getSharedClient();
+		
+		MultipartBody requestBody = new MultipartBody.Builder()
+					.addFormDataPart("account", account)
+					.addFormDataPart("passwordHash", MD5.getMD5(password))
+					.build();
+		
+		Request request = Server.requestBuliderWithApi("login")
+						.method("post", null)
+						.post(requestBody)
+						.build();
+		
+		final ProgressDialog dlg = new ProgressDialog(this);
+		dlg.setCancelable(false);
+		dlg.setCanceledOnTouchOutside(false);
+		dlg.setMessage("正在登录");
+		dlg.show();
+		
+		client.newCall(request).enqueue(new Callback() {
+			
+			@Override
+			public void onResponse(Call arg0, Response arg1) throws IOException {
+				
+				try {//检查用户名、密码是否正确
+					final String responseString = arg1.body().string();
+					ObjectMapper mapper = new ObjectMapper();
+					final User user = mapper.readValue(responseString, User.class);
+					
+					runOnUiThread(new Runnable() {
+						
+						@Override
+						public void run() {
+							dlg.dismiss();
+							new AlertDialog.Builder(LoginActivity.this)
+							.setMessage("Hello "+user.getName())
+							.setPositiveButton("OK", new OnClickListener() {
+								
+								@Override
+								public void onClick(DialogInterface dialog, int which) {
+
+									Intent itnt = new Intent(LoginActivity.this, HelloWorldActivity.class);
+									startActivity(itnt);
+									
+								}
+							}).show();
+							
+						}
+					});
+				} catch (final Exception e) {
+					runOnUiThread(new Runnable() {
+						
+						@Override
+						public void run() {
+							dlg.dismiss();
+							Toast.makeText(LoginActivity.this, "用户名或密码错误！", Toast.LENGTH_SHORT).show(); 
+						}
+					});
+					
+					e.printStackTrace();
+				}
+				
+				
+			}
+			
+			@Override
+			public void onFailure(Call arg0, final IOException arg1) {
+				runOnUiThread(new Runnable() {
+					
+					@Override
+					public void run() {
+						dlg.dismiss();
+						Toast.makeText(LoginActivity.this, arg1.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+					}
+				});
+				
+			}
+		});
+		
 	}
 	
 	void goRecoverPassword(){  //进入密码找回界面

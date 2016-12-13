@@ -41,6 +41,11 @@ public class PasswordRecoverStep1Fragment extends Fragment {
 		fragEmail.setHintText("«Î ‰»Î” œ‰");
 	}
 	
+	public String getEmail()
+	{
+        return fragEmail.getText();
+	}
+	
 	public static interface OnGoNextListener{ void onGoNext(); }
 	
 	OnGoNextListener onGoNextListener;

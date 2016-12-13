@@ -1,5 +1,7 @@
 package com.example.helloworld.fragments.inputcells;
 
+import java.io.ByteArrayOutputStream;
+
 import com.example.helloworld.R;
 
 import android.app.Activity;
@@ -8,6 +10,7 @@ import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
 import android.media.ImageReader.OnImageAvailableListener;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -25,6 +28,8 @@ public class PictureInputCellFragment extends BaseInputCellFragment {
 	ImageView imageView;
 	TextView labelText;
 	TextView hintText;
+	
+	byte[] pngData;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -68,7 +73,7 @@ public class PictureInputCellFragment extends BaseInputCellFragment {
 				}
 			}
 		})
-		.setNegativeButton("", null)
+		.setNegativeButton("no", null)
 		.show();
 	}
 	
@@ -85,6 +90,15 @@ public class PictureInputCellFragment extends BaseInputCellFragment {
 		startActivityForResult(itnt, REQUEST_ALBUM);
 	}
 	
+	void saveBitmap(Bitmap bmp)
+	{
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		bmp.compress(CompressFormat.PNG, 100, baos);
+		pngData = baos.toByteArray();
+	}
+	
+	public byte[] getPngData() { return pngData; }
+	
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode==Activity.RESULT_CANCELED) return;
@@ -92,12 +106,16 @@ public class PictureInputCellFragment extends BaseInputCellFragment {
 		if (requestCode==REQUEST_CAMERA)
 		{
 			Bitmap bmp = (Bitmap)data.getExtras().get("data");
+			saveBitmap(bmp);
+			
 			imageView.setImageBitmap(bmp);
 		}
 		else if (requestCode==REQUEST_ALBUM)
 		{
 			try {
-					Bitmap bmp = (Bitmap)data.getExtras().get("data");
+					Bitmap bmp = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), data.getData());
+					saveBitmap(bmp);
+					
 					imageView.setImageBitmap(bmp);
 			} catch (Exception e) {
 				e.printStackTrace();

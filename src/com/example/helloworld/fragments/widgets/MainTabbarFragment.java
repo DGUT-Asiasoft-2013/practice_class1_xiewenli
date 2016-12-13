@@ -6,6 +6,7 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 
 public class MainTabbarFragment extends Fragment {
@@ -36,6 +37,14 @@ public class MainTabbarFragment extends Fragment {
 				}
 			});
 		}
+		
+		btnNew.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				onNewClicked();
+			}
+		});
 		
 		return view;
 	}
@@ -69,7 +78,7 @@ public class MainTabbarFragment extends Fragment {
 			View otherTab = tabs[i];
 			if (otherTab == tab)
 			{
-				otherTab.setSelected(false);
+				otherTab.setSelected(true);
 				selectedIndex = i;
 			}else otherTab.setSelected(false);
 		}
@@ -91,6 +100,15 @@ public class MainTabbarFragment extends Fragment {
 	void onNewClicked(){
 		if(onNewClickedListener!=null)
 			onNewClickedListener.onNewClicked();
+	}
+
+	public int getSelectedIndex()
+	{
+		for (int i=0; i<tabs.length; i++)
+			if (tabs[i].isSelected())
+				return i;
+		
+		return -1;
 	}
 
 }

@@ -2,6 +2,8 @@ package com.example.helloworld;
 
 import java.io.IOException;
 
+import com.example.helloworld.api.Server;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,21 +32,21 @@ public class BootActivity extends Activity {
 	{
 		super.onResume();
 			
-		Handler handler = new Handler();
-		handler.postDelayed(new Runnable() {
-			private int abcd = 0;
-			
-			public void run(){
-				startLoginActivity();
-			}
-		}, 1000);
+//		Handler handler = new Handler();
+//		handler.postDelayed(new Runnable() {
+//			private int abcd = 0;
+//			
+//			public void run(){
+//				startLoginActivity();
+//			}
+//		}, 1000);
 		
-		OkHttpClient client = new OkHttpClient();
+		//向服务器获取HELLO WORLD字符串并显示在初始界面
+		OkHttpClient client = Server.getSharedClient();
 		
-		Request request = new Request.Builder()
-				.url("http://172.27.0.28:8080/membercenter/api/hello")
-				.method("GET", null)
-				.build();
+		Request request = Server.requestBuliderWithApi("hello")
+							.method("GET", null)
+							.build();
 		
 		client.newCall(request).enqueue(new Callback() {
 			
